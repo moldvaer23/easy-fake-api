@@ -18,17 +18,18 @@ export const createFakeApiServer = <T>({
 	requests,
 	store,
 }: TConfigureFakeApiServer<T>) => {
-	/* A variable for storing requests */
-	const configRequests: TFakeRequests<T> = requests
 	/* A variable for storing data */
 	const configStore: TFakeStore<T> = store
+
+	/* A variable for storing requests */
+	const configRequests: TFakeRequests<T> = requests
 
 	/**
 	 * A function for getting a request promise from a variable for storing requests
 	 * @param {string} requestName - Name of the request
 	 * @param payload - Optional request payload parameter. As K
 	 */
-	const getFakeRequest = <T, K>({
+	const getFakeRequest = <T, K = void>({
 		requestName,
 		payload,
 	}: TGetFakeRequestProps<K>): Promise<TResponse<T>> | null => {
@@ -62,7 +63,5 @@ export const createFakeApiServer = <T>({
 
 	return {
 		getFakeRequest: getFakeRequest,
-		fakeStore: configStore,
-		fakeRequests: Object.assign(configRequests),
 	}
 }
